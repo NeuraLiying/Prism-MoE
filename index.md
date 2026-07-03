@@ -4,87 +4,53 @@ title: "Prism-MoE: Efficient Dense-to-MoE Conversion for Visual Autoregressive G
 permalink: "/"
 ---
 
-<!-- ===== Fonts & minimal style (works on GitHub Pages, same pattern as FreqExit / ARC-Decode) ===== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --text:#1f2328; --muted:#57606a; --accent:#1f6feb; --pill:#2f363d; --gold:#d4a72c;
-    --maxw:1100px;
+    --text:#1f2328; --muted:#57606a; --accent:#1f6feb; --pill:#2f363d; --gold:#d4a72c; --maxw:1100px;
   }
   body{
     font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
-  }
-  .wrap{
-    max-width:var(--maxw);
-    margin:0 auto;
-    padding:24px 16px 48px;
-  }
-  .title{
-    font-size:44px;
-    font-weight:800;
-    line-height:1.15;
-    text-align:center;
     color:var(--text);
-    margin:18px 0 8px;
   }
-  .venue{
-    font-size:22px;
-    font-weight:700;
-    color:#d12;
-    text-align:center;
-    margin:4px 0 18px;
-  }
-  .authors,.affils{
-    text-align:center;
-    color:var(--muted);
-  }
-  .authors a{
-    color:#0969da;
-    text-decoration:none;
-  }
-  .authors a:hover{
-    text-decoration:underline;
-  }
-  sup{font-size:.75em}
-  .badges{
-    text-align:center;
-    margin:26px 0 20px;
-  }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:24px 16px 56px; }
+  .title{ font-size:40px; font-weight:800; line-height:1.15; text-align:center; color:var(--text); margin:18px 0 8px; }
+  .venue{ font-size:22px; font-weight:700; color:#d12; text-align:center; margin:4px 0 20px; }
+  .authors{ text-align:center; color:var(--text); font-size:18px; line-height:1.8; margin:8px 0 2px; }
+  .authors sup{ font-size:.7em; color:var(--muted); }
+  .affils{ text-align:center; color:var(--muted); font-size:14px; line-height:1.7; margin:6px 0 2px; }
+  .affils sup{ font-size:.8em; }
+  .note{ text-align:center; color:var(--muted); font-size:13px; margin:4px 0 14px; }
+  .logos{ text-align:center; margin:14px 0 8px; }
+  .logos img{ max-width:58%; }
+  .badges{ text-align:center; margin:22px 0 26px; }
   .badge{
-    display:inline-block;
-    margin:6px 8px;
-    padding:10px 14px;
-    border-radius:14px;
-    background:var(--pill);
-    color:#fff;
-    font-weight:700;
-    letter-spacing:.3px;
-    text-decoration:none;
+    display:inline-block; margin:6px 8px; padding:10px 16px; border-radius:14px;
+    background:var(--pill); color:#fff; font-weight:700; letter-spacing:.3px; text-decoration:none;
     box-shadow:0 2px 6px rgba(0,0,0,.12);
   }
-  .badge.blue{ background:var(--accent);}
-  .badge.gold{ background:var(--gold); color:#1f2328;}
-  .badge.muted{ background:#8c959f; cursor:default;}
-  .center{ text-align:center;}
-  .section{
-    max-width: var(--maxw);
-    margin: 28px auto 0;
-    padding: 0 4px;
+  .badge.blue{ background:var(--accent); }
+  .badge.gold{ background:var(--gold); color:#1f2328; }
+  .section{ max-width:var(--maxw); margin:36px auto 0; padding:0 4px; }
+  .section h2{ font-size:26px; font-weight:800; border-bottom:2px solid #eaecef; padding-bottom:8px; margin:0 0 12px; }
+  .section h3{ font-size:19px; font-weight:700; margin:20px 0 6px; }
+  .section p{ line-height:1.75; font-size:16px; margin:10px 0; }
+  .tldr{
+    font-size:17px; line-height:1.65; color:var(--text);
+    background:#f6f8fa; border-left:4px solid var(--accent);
+    padding:14px 18px; border-radius:6px; margin:14px 0 4px; text-align:left;
   }
-  .coming{
-    text-align:center;
-    color:var(--muted);
-    font-style:italic;
-    margin:18px 0;
-  }
-  pre{
-    background:#f6f8fa;
-    padding:14px 16px;
-    border-radius:8px;
-    overflow-x:auto;
-    font-size:13px;
-  }
+  .fig{ text-align:center; margin:22px 0; }
+  .fig img{ max-width:100%; border-radius:8px; box-shadow:0 1px 5px rgba(0,0,0,.10); }
+  .fig.w90 img{ width:90%; } .fig.w80 img{ width:80%; } .fig.w70 img{ width:70%; }
+  .caption{ text-align:center; color:var(--muted); font-size:14px; margin-top:8px; font-style:italic; line-height:1.55; }
+  ul.bullets{ line-height:1.8; font-size:16px; margin:8px 0; }
+  ul.bullets li{ margin:5px 0; }
+  .arrow{ color:var(--accent); font-weight:700; }
+  pre{ background:#f6f8fa; padding:14px 16px; border-radius:8px; overflow-x:auto; font-size:13px; }
+  code{ background:#f6f8fa; padding:1px 5px; border-radius:4px; font-size:13px; }
+  pre code{ background:none; padding:0; }
 </style>
 
 <div class="wrap">
@@ -92,42 +58,106 @@ permalink: "/"
   <h1 class="title">Prism-MoE: Efficient Dense-to-MoE Conversion for Visual Autoregressive Generation</h1>
   <div class="venue">ICML 2026</div>
 
-  <!-- TODO(later): add full author list + affiliations once finalized.
-       Example markup (mirrors FreqExit):
-       <div class="authors">
-         <a>Ying Li</a><sup>1</sup>,
-         <a href="..." target="_blank">Co-Author</a><sup>2</sup>
-       </div>
-       <div class="affils"><sup>1</sup> Westlake University &nbsp;·&nbsp; <sup>2</sup> ...</div>
-  -->
-  <div class="authors">Authors to be announced</div>
+  <div class="authors">
+    Ying Li<sup>*1</sup>, &nbsp;
+    Zefang Wang<sup>*2</sup>, &nbsp;
+    Zhaode Wang<sup>3</sup>, &nbsp;
+    Zhiwen Chen<sup>3</sup>, &nbsp;
+    Chengfei Lv<sup>3</sup>, &nbsp;
+    Huan Wang<sup>1</sup>
+  </div>
+  <div class="affils">
+    <sup>1</sup> Westlake University &nbsp;&nbsp; <sup>2</sup> Zhejiang University &nbsp;&nbsp; <sup>3</sup> Alibaba Group
+  </div>
+  <div class="note"><em>* Equal contribution</em> &nbsp;&nbsp;·&nbsp;&nbsp; Corresponding author: Huan Wang</div>
 
-  <div class="badges">
-    <a class="badge blue" href="https://github.com/NeuraLiying/Prism-MoE" target="_blank">Code</a>
-    <!-- TODO(later): replace with arXiv / openreview / PDF link -->
-    <span class="badge muted">Paper&nbsp;(coming&nbsp;soon)</span>
-    <a class="badge gold" href="https://opensource.org/license/apache-2-0" target="_blank">Apache&nbsp;2.0</a>
+  <div class="logos">
+    <img src="assets/logo.png" alt="Institution logos">
   </div>
 
-  <p class="coming">
-    Website &amp; full details are under construction. Please check back soon.
+  <div class="badges">
+    <a class="badge blue" href="https://icml.cc/virtual/2026/poster/65615" target="_blank">Paper</a>
+    <a class="badge blue" href="https://github.com/NeuraLiying/Prism-MoE" target="_blank">Code</a>
+    <a class="badge gold" href="https://opensource.org/license/apache-2-0" target="_blank">Apache 2.0</a>
+  </div>
+
+  <div class="fig w90">
+    <img src="assets/teaser_2.png" alt="Prism-MoE teaser">
+  </div>
+  <p class="tldr">
+    <strong>TL;DR:</strong> Prism-MoE converts a pretrained visual autoregressive image generator into a sparse top-k2 Mixture-of-Experts model via a training-free two-stage initialization plus lightweight distillation, preserving image quality at a fraction of the compute.
   </p>
 
-  <!-- TODO(later): paste the official abstract here once available -->
   <div class="section">
-    <h2>Abstract</h2>
-    <p>Coming soon.</p>
+    <h2>Problem</h2>
+    <p>Visual autoregressive image generation keeps scaling — from next-token models (LlamaGen, Janus-Pro) and next-scale models (VAR, Infinity) to tens-of-billions-parameter systems — which substantially increases inference cost. Mixture-of-Experts (MoE) is a natural way to add capacity through sparse activation and is already standard in large language models, but training MoE from scratch is prohibitively expensive, making low-cost <strong>dense-to-MoE conversion</strong> the appealing route. Yet dense-to-MoE conversion for autoregressive image generation remains underexplored: prior efforts mostly target general upcycling or diffusion with heavy fine-tuning, and the conversion is further complicated by step-dependent activation non-stationarity and spatially heterogeneous token uncertainty.</p>
+    <p>So we ask: <strong>can MoE be brought into visual autoregressive generation efficiently</strong> — converting a pretrained dense generator into a sparse MoE with only a fraction of the active parameters and training budget, while preserving generation quality?</p>
+  </div>
+
+  <div class="section">
+    <h2>Motivation</h2>
+
+    <div class="fig w70"><img src="assets/sub_space.png" alt="Step-dependent low-rank structure"></div>
+    <p class="caption">Visual AR representations exhibit strong step-dependent low-rank structures, indicating that feature complexity varies significantly across generation steps.</p>
+
+    <div class="fig w70"><img src="assets/lb_loss_fail.png" alt="Non-uniform expert activation"></div>
+    <p class="caption">Expert activation patterns are highly non-uniform and evolve during fine-tuning, suggesting unstable routing behavior and lack of consistent expert specialization.</p>
+
+    <div class="fig w70"><img src="assets/entropy_distribution.png" alt="Spatially heterogeneous entropy"></div>
+    <p class="caption">Generated images exhibit spatially heterogeneous entropy patterns, where high-uncertainty regions align with semantic structures, indicating a mismatch between routing behavior and visual complexity.</p>
+  </div>
+
+  <div class="section">
+    <h2>Method</h2>
+    <div class="fig w90"><img src="assets/method.png" alt="Method overview"></div>
+
+    <h3>Stage I: Trajectory-Consistent Initialization</h3>
+    <ul class="bullets">
+      <li>Importance and stability analysis <span class="arrow">&rarr;</span> Identify critical and stable neurons</li>
+      <li>Shared and routed expert decomposition <span class="arrow">&rarr;</span> Separate shared and specialized features</li>
+      <li>Closed-form trajectory compensation <span class="arrow">&rarr;</span> Recover the dense trajectory</li>
+    </ul>
+
+    <h3>Stage II: Condition-Adaptive Sparse Fine-Tuning</h3>
+    <ul class="bullets">
+      <li>Dense-to-sparse distillation <span class="arrow">&rarr;</span> Preserve dense representations</li>
+      <li>Normalized cosine router <span class="arrow">&rarr;</span> Stabilize expert selection</li>
+      <li>Spatially structured routing regularization <span class="arrow">&rarr;</span> Promote coherent expert specialization</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Main Results</h2>
+    <div class="fig w80"><img src="assets/exp_1.png" alt="Main results"></div>
+    <ul class="bullets">
+      <li><strong>Strong initialization.</strong> At 75% active parameters, Prism-MoE achieves the best sparse initialization result, with FID 5.03.</li>
+      <li><strong>Near dense quality.</strong> After efficient fine-tuning, Prism-MoE reaches FID closely matching the dense VAR-d20 baseline.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Ablation</h2>
+    <div class="fig w70"><img src="assets/ablation_entropy.png" alt="Ablation: entropy"></div>
+    <p class="caption">Baseline exhibits scattered entropy with unstable uncertainty regions. Ours produces structured entropy aligned with semantic regions and more consistent routing behavior.</p>
+  </div>
+
+  <div class="section">
+    <h2>Visual Results</h2>
+    <div class="fig w90"><img src="assets/appendix_var_375.png" alt="VAR-d20 visual results"></div>
+    <p class="caption">VAR-d20, 37.5% activation</p>
+
+    <div class="fig w90"><img src="assets/appendix-llamagen-375.png" alt="LlamaGen visual results"></div>
+    <p class="caption">LlamaGen, 37.5% activation</p>
   </div>
 
   <div class="section">
     <h2>BibTeX</h2>
-    <!-- TODO(later): update with final author list / pages once published -->
-    <pre><code class="language-bibtex">@inproceedings{li2026prismmoe,
-  title={Prism-MoE: Efficient Dense-to-MoE Conversion for Visual Autoregressive Generation},
-  author={Li, Ying and others},
-  booktitle={ICML},
-  year={2026}
+    <pre><code>@inproceedings{li2026prismmoe,
+  title     = {Prism-MoE: Efficient Dense-to-MoE Conversion for Visual Autoregressive Generation},
+  author    = {Li, Ying and Wang, Zefang and Wang, Zhaode and Chen, Zhiwen and Lv, Chengfei and Wang, Huan},
+  booktitle = {International Conference on Machine Learning (ICML)},
+  year      = {2026}
 }</code></pre>
   </div>
 
-</div> <!-- /wrap -->
+</div>
