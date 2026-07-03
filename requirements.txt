@@ -1,0 +1,8 @@
+torch
+torchvision
+numpy
+pillow
+tqdm
+scipy
+huggingface_hub
+pytorch-fid

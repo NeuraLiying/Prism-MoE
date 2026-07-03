@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Envs
+.env
+venv/
+.venv/
+
+# Prism-MoE run artifacts
+outputs/
+full_runs/
+fid_outputs/
+*.log
