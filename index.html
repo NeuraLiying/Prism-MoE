@@ -1,58 +1,62 @@
----
-layout: default
-title: "Prism-MoE: Efficient Dense-to-MoE Conversion for Visual Autoregressive Generation"
-permalink: "/"
----
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --text:#1f2328; --muted:#57606a; --accent:#1f6feb; --pill:#2f363d; --gold:#d4a72c; --maxw:1100px;
-  }
-  body{
-    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
-    color:var(--text);
-  }
-  .wrap{ max-width:var(--maxw); margin:0 auto; padding:24px 16px 56px; }
-  .title{ font-size:40px; font-weight:800; line-height:1.15; text-align:center; color:var(--text); margin:18px 0 8px; }
-  .venue{ font-size:22px; font-weight:700; color:#d12; text-align:center; margin:4px 0 20px; }
-  .authors{ text-align:center; color:var(--text); font-size:18px; line-height:1.8; margin:8px 0 2px; }
-  .authors sup{ font-size:.7em; color:var(--muted); }
-  .affils{ text-align:center; color:var(--muted); font-size:14px; line-height:1.7; margin:6px 0 2px; }
-  .affils sup{ font-size:.8em; }
-  .note{ text-align:center; color:var(--muted); font-size:13px; margin:4px 0 14px; }
-  .logos{ text-align:center; margin:14px 0 8px; }
-  .logos img{ max-width:58%; }
-  .badges{ text-align:center; margin:22px 0 26px; }
-  .badge{
-    display:inline-block; margin:6px 8px; padding:10px 16px; border-radius:14px;
-    background:var(--pill); color:#fff; font-weight:700; letter-spacing:.3px; text-decoration:none;
-    box-shadow:0 2px 6px rgba(0,0,0,.12);
-  }
-  .badge.blue{ background:var(--accent); }
-  .badge.gold{ background:var(--gold); color:#1f2328; }
-  .section{ max-width:var(--maxw); margin:36px auto 0; padding:0 4px; }
-  .section h2{ font-size:26px; font-weight:800; border-bottom:2px solid #eaecef; padding-bottom:8px; margin:0 0 12px; }
-  .section h3{ font-size:19px; font-weight:700; margin:20px 0 6px; }
-  .section p{ line-height:1.75; font-size:16px; margin:10px 0; }
-  .tldr{
-    font-size:17px; line-height:1.65; color:var(--text);
-    background:#f6f8fa; border-left:4px solid var(--accent);
-    padding:14px 18px; border-radius:6px; margin:14px 0 4px; text-align:left;
-  }
-  .fig{ text-align:center; margin:22px 0; }
-  .fig img{ max-width:100%; border-radius:8px; box-shadow:0 1px 5px rgba(0,0,0,.10); }
-  .fig.w90 img{ width:90%; } .fig.w80 img{ width:80%; } .fig.w70 img{ width:70%; }
-  .caption{ text-align:center; color:var(--muted); font-size:14px; margin-top:8px; font-style:italic; line-height:1.55; }
-  ul.bullets{ line-height:1.8; font-size:16px; margin:8px 0; }
-  ul.bullets li{ margin:5px 0; }
-  .arrow{ color:var(--accent); font-weight:700; }
-  pre{ background:#f6f8fa; padding:14px 16px; border-radius:8px; overflow-x:auto; font-size:13px; }
-  code{ background:#f6f8fa; padding:1px 5px; border-radius:4px; font-size:13px; }
-  pre code{ background:none; padding:0; }
-</style>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prism-MoE: Efficient Dense-to-MoE Conversion for Visual Autoregressive Generation (ICML 2026)</title>
+  <meta name="description" content="Prism-MoE: Efficient Dense-to-MoE Conversion for Visual Autoregressive Generation. ICML 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --text:#1f2328; --muted:#57606a; --accent:#1f6feb; --pill:#2f363d; --gold:#d4a72c; --maxw:1100px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text); background:#fff;
+    }
+    .wrap{ max-width:var(--maxw); margin:0 auto; padding:24px 16px 56px; }
+    .title{ font-size:40px; font-weight:800; line-height:1.15; text-align:center; color:var(--text); margin:18px 0 8px; }
+    .venue{ font-size:22px; font-weight:700; color:#d12; text-align:center; margin:4px 0 20px; }
+    .authors{ text-align:center; color:var(--text); font-size:18px; line-height:1.8; margin:8px 0 2px; }
+    .authors sup{ font-size:.7em; color:var(--muted); }
+    .affils{ text-align:center; color:var(--muted); font-size:14px; line-height:1.7; margin:6px 0 2px; }
+    .affils sup{ font-size:.8em; }
+    .note{ text-align:center; color:var(--muted); font-size:13px; margin:4px 0 14px; }
+    .logos{ text-align:center; margin:14px 0 8px; }
+    .logos img{ max-width:58%; }
+    .badges{ text-align:center; margin:22px 0 26px; }
+    .badge{
+      display:inline-block; margin:6px 8px; padding:10px 16px; border-radius:14px;
+      background:var(--pill); color:#fff; font-weight:700; letter-spacing:.3px; text-decoration:none;
+      box-shadow:0 2px 6px rgba(0,0,0,.12);
+    }
+    .badge.blue{ background:var(--accent); }
+    .badge.gold{ background:var(--gold); color:#1f2328; }
+    .section{ max-width:var(--maxw); margin:36px auto 0; padding:0 4px; }
+    .section h2{ font-size:26px; font-weight:800; border-bottom:2px solid #eaecef; padding-bottom:8px; margin:0 0 12px; }
+    .section h3{ font-size:19px; font-weight:700; margin:20px 0 6px; }
+    .section p{ line-height:1.75; font-size:16px; margin:10px 0; }
+    .tldr{
+      font-size:17px; line-height:1.65; color:var(--text);
+      background:#f6f8fa; border-left:4px solid var(--accent);
+      padding:14px 18px; border-radius:6px; margin:14px 0 4px; text-align:left;
+    }
+    .fig{ text-align:center; margin:22px 0; }
+    .fig img{ max-width:100%; border-radius:8px; box-shadow:0 1px 5px rgba(0,0,0,.10); }
+    .fig.w90 img{ width:90%; } .fig.w80 img{ width:80%; } .fig.w70 img{ width:70%; }
+    .caption{ text-align:center; color:var(--muted); font-size:14px; margin-top:8px; font-style:italic; line-height:1.55; }
+    ul.bullets{ line-height:1.8; font-size:16px; margin:8px 0; }
+    ul.bullets li{ margin:5px 0; }
+    .arrow{ color:var(--accent); font-weight:700; }
+    pre{ background:#f6f8fa; padding:14px 16px; border-radius:8px; overflow-x:auto; font-size:13px; }
+    code{ background:#f6f8fa; padding:1px 5px; border-radius:4px; font-size:13px; }
+    pre code{ background:none; padding:0; }
+  </style>
+</head>
+<body>
 <div class="wrap">
 
   <h1 class="title">Prism-MoE: Efficient Dense-to-MoE Conversion for Visual Autoregressive Generation</h1>
@@ -161,3 +165,5 @@ permalink: "/"
   </div>
 
 </div>
+</body>
+</html>
